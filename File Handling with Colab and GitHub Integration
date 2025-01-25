@@ -1,0 +1,55 @@
+#  File Handling with Colab and GitHub Integration
+
+
+
+# 1. File Handling Operations
+import os
+
+def create_and_write_file(filename, content):
+    with open(filename, 'w') as file:
+        file.write(content)
+    print(f"File '{filename}' created and written successfully.")
+
+def read_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            print(file.read())
+    except FileNotFoundError:
+        print(f"File '{filename}' not found.")
+
+def append_to_file(filename, content):
+    with open(filename, 'a') as file:
+        file.write(content)
+    print(f"Content appended to '{filename}'.")
+
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        print(f"File '{filename}' deleted.")
+    else:
+        print(f"File '{filename}' does not exist.")
+
+# 2. Demonstration of File Operations
+file_name = "colab_example.txt"
+
+# Create and write to the file
+create_and_write_file(file_name, "This is a test file created in Google Colab.\n")
+
+# Read the file
+read_file(file_name)
+
+# Append to the file
+append_to_file(file_name, "This is additional content appended in Google Colab.\n")
+
+# Read the file again
+read_file(file_name)
+
+# Delete the file
+delete_file(file_name)
+
+# 3. Instructions for GitHub Integration
+print("\nTo save your code to GitHub:")
+print("1. Go to https://colab.research.google.com.")
+print("2. Open this notebook in Colab.")
+print("3. Save this notebook to your GitHub repository using 'File > Save a copy in GitHub'.")
+print("4. Provide the URL of the saved notebook as your submission.")
