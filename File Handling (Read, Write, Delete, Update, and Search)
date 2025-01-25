@@ -1,0 +1,60 @@
+#  Practice File Handling (Read, Write, Delete, Update, and Search)
+
+import os
+
+# 1. Writing to a file
+def write_to_file(filename, content):
+    with open(filename, 'w') as file:
+        file.write(content)
+    print(f"Content written to {filename}")
+
+# 2. Reading from a file
+def read_from_file(filename):
+    try:
+        with open(filename, 'r') as file:
+            print(file.read())
+    except FileNotFoundError:
+        print(f"{filename} not found!")
+
+# 3. Appending to a file
+def append_to_file(filename, content):
+    with open(filename, 'a') as file:
+        file.write(content)
+    print(f"Content appended to {filename}")
+
+# 4. Searching in a file
+def search_in_file(filename, keyword):
+    try:
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+            for i, line in enumerate(lines, start=1):
+                if keyword in line:
+                    print(f"Keyword '{keyword}' found on line {i}: {line.strip()}")
+    except FileNotFoundError:
+        print(f"{filename} not found!")
+
+# 5. Deleting a file
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        print(f"{filename} has been deleted.")
+    else:
+        print(f"{filename} does not exist.")
+
+# Demonstration
+file_name = "example.txt"
+
+# Writing to the file
+write_to_file(file_name, "Hello, this is a test file.\nThis is the second line.\n")
+
+# Reading from the file
+read_from_file(file_name)
+
+# Appending to the file
+append_to_file(file_name, "This is an appended line.\n")
+
+# Searching in the file
+search_in_file(file_name, "test")
+
+# Deleting the file
+delete_file(file_name)
