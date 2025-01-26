@@ -1,0 +1,27 @@
+# File: missing_vals_module.py
+
+def getMissingVals(input_list, end_of_first_list, start_of_second_list):
+    """
+    Identifies missing values between the split sections of a list.
+
+    Parameters:
+        input_list (list): The full list of values.
+        end_of_first_list (int): The last index of the first section.
+        start_of_second_list (int): The first index of the second section.
+
+    Returns:
+        str or list: "No missing Val" if no values are missing, otherwise the list of missing values.
+    """
+    if end_of_first_list >= start_of_second_list:
+        raise ValueError("End of the first list index must be less than the start of the second list index.")
+
+    # Splitting the list into two parts
+    first_part = input_list[:end_of_first_list + 1]
+    second_part = input_list[start_of_second_list:]
+
+    # Calculate missing values
+    missing_values = set(range(first_part[-1] + 1, second_part[0])) - set(input_list)
+
+    if not missing_values:
+        return "No missing Val"
+    return sorted(missing_values)
