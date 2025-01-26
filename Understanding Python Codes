@@ -1,0 +1,148 @@
+# Understanding Python Codes
+
+## Section 1: Even ASCII Characters and Their Values
+
+### Explanation:
+Using list comprehension with `if` and `for` loop to filter and display even ASCII characters.
+
+```python
+# Generate ASCII characters and their values
+ascii_chars = [str(c) + "=" + chr(c) for c in range(ord('a'), ord('z') + 1) if c % 2 == 0]
+print("Even ASCII characters and their values:", ascii_chars)
+```
+
+### Output:
+```
+['98=b',
+ '100=d',
+ '102=f',
+ '104=h',
+ '106=j',
+ '108=l',
+ '110=n',
+ '112=p',
+ '114=r',
+ '116=t',
+ '118=v',
+ '120=x',
+ '122=z']
+```
+
+---
+
+## Section 2: Finding Missing Items from Lists
+
+### Explanation:
+Demonstrating two methods to find a missing element after splitting and concatenating lists.
+
+#### Way 1: Using `set()`
+```python
+li = [i for i in range(10)]
+li1 = li[:2] + li[3:]
+missing_element = set(li) - set(li1)
+print(f"The missing element is: {missing_element.pop()}")
+```
+
+#### Way 2: Using a `for` Loop
+```python
+li = [i for i in range(10)]
+li1 = li[:2] + li[3:]
+missing_element = None
+for item in li:
+    if item not in li1:
+        missing_element = item
+        break
+print(f"The missing element is: {missing_element}")
+```
+
+---
+
+## Section 3: Complex Numbers and Memory Size Analysis
+
+### Explanation:
+Working with complex numbers and memory size comparison.
+
+```python
+def addComplex(z1, z2):
+    return z1 + z2
+
+li1 = [complex(_, 2 + _) for _ in range(6)]
+li2 = [complex(_, 2 + _) for _ in range(2, 14, 2)]
+
+li3 = []
+for i, j in zip(li1, li2):
+    li3.append(addComplex(i, j))
+
+print(f"li1 = {li1}\nli2 = {li2}\nli3= {li3}")
+enc_mess = bytes(str(li3).encode('utf-16'))
+
+import sys
+print(f"Encoded Message Size of type{type(enc_mess)}: ", sys.getsizeof(enc_mess))
+print(f"List Size of type{type(li3)}: ", sys.getsizeof(li3))
+print(f"Encoded Message Size of type{type(str(li3))}: ", sys.getsizeof(str(li3)))
+print("Original list after addition", li3)
+print(f"Encoded Message: {enc_mess}")
+```
+
+---
+
+## Section 4: OOP Implementation
+
+### Explanation:
+Rewriting the same logic in an OOP style for better modularity and reusability.
+
+```python
+import sys
+
+class ComplexOperations:
+    def __init__(self):
+        # Initialize lists
+        self.li1 = [complex(_, 2 + _) for _ in range(6)]
+        self.li2 = [complex(_, 2 + _) for _ in range(2, 14, 2)]
+        self.li3 = []
+
+    # Non-static method to add two complex numbers
+    def add_complex(self, z1, z2):
+        return z1 + z2
+
+    # Non-static method to generate the resulting list
+    def compute_result(self):
+        for i, j in zip(self.li1, self.li2):
+            self.li3.append(self.add_complex(i, j))
+
+    # Static method to calculate memory size
+    @staticmethod
+    def calculate_size(obj, encoding='utf-16'):
+        if isinstance(obj, str):
+            encoded_obj = obj.encode(encoding)
+            return sys.getsizeof(encoded_obj), encoded_obj
+        return sys.getsizeof(obj)
+
+    # Non-static method to display results
+    def display_results(self):
+        print(f"li1 = {self.li1}\nli2 = {self.li2}\nli3 = {self.li3}")
+        encoded_message = str(self.li3)
+        enc_size, enc_obj = ComplexOperations.calculate_size(encoded_message)
+        list_size = ComplexOperations.calculate_size(self.li3)
+
+        print(f"Encoded Message Size (type: {type(enc_obj)}): {enc_size}")
+        print(f"List Size (type: {type(self.li3)}): {list_size}")
+        print(f"Encoded Message: {enc_obj}")
+        print("Original list after addition:", self.li3)
+
+# Main method
+def main():
+    # Create an object of ComplexOperations
+    complex_ops = ComplexOperations()
+
+    # Compute the result
+    complex_ops.compute_result()
+
+    # Display results
+    complex_ops.display_results()
+
+# Entry point
+if __name__ == "__main__":
+    main()
+```
+
